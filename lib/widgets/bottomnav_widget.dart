@@ -1,28 +1,29 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:listme/commons/styles.dart';
-import 'package:listme/views/posts/posts_screen.dart';
-import 'package:listme/views/user/user_screen.dart';
-import 'todos/todos_screen.dart';
+import 'package:listme/views/home_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({ Key? key, this.xCurrentSelected = 0 }) : super(key: key);
-   final int xCurrentSelected;
+import '../views/posts/posts_screen.dart';
+import '../views/todos/todos_screen.dart';
+import '../views/user/user_screen.dart';
 
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({ Key? key ,this.xCurrentIndex = 0}) : super(key: key);
+  final xCurrentIndex;
+  
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
+class _BottomNavigationState extends State<BottomNavigation> {
   var currentIndex = 0;
   void _onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context)=> HomePage(xCurrentSelected: index,)));
   }
 
   //list of Screens
-  final _screens = [
+  final screens = [
     const PostScreen(),
     const UserScreen(),
     const TodoScreen(),
@@ -30,33 +31,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   final _bottomNavItem = ["Posts", "Albums", "Todos"];
   @override
   void initState() {
-    currentIndex = widget.xCurrentSelected;
+    currentIndex = widget.xCurrentIndex;
     super.initState();
   }
-
-
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.black,
-          title: Text(_bottomNavItem[currentIndex],style: gotu(white, 15),),
-          centerTitle: true,
-        ),
-        body : _screens[currentIndex],
-        bottomNavigationBar: bottomNavBar(_width)
-    
-      ),
-    );
+    var _width = MediaQuery.of(context).size.width;
+    return bottomNavBar(_width);
   }
 
-  //bottom navigation bar widget
+   //bottom navigation bar widget
   Widget bottomNavBar(_width){
     return Container(
         height: kToolbarHeight+10,
@@ -76,7 +60,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             padding: const EdgeInsets.symmetric(horizontal: 0),
             child: ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _screens.length,
+              itemCount: screens.length,
               scrollDirection: Axis.horizontal,
               separatorBuilder: (context,index)=> SizedBox(width: _width * 0.07),
               itemBuilder: (context, index) => InkWell(
