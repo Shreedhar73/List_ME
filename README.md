@@ -1,16 +1,31 @@
 # listme
 
-A new Flutter project.
+Flutter Version : 2.10.3
+Dart Version : 2.16.0
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Home Screen :: Bottom Nav 
+                  with three tabs : 
+                  [Post Screen default)
+                  [USERS LIST SCREEN]
+                  [TODOD SCREEN]
+      The bottom Nav is minimally animated using AnimatedContainer widget.
+      
+      
+ALL the data is Fetched from API.
+     I have used Threading , using (ISolates.spwan(), method  that has significantly reduced the data fetching via HTTP)
+     All the fetched data are stored in HIVE . 
+     If there is no Internet (checked using SOCKETEXCEPTION class), then the data is shown from HIVE else directly from web.
+     
+POST SCREEN , contains POST data in TILES, there is an Animated pop up  at init, thatdirects to tap on individual TILE to open Comment Widget.
+Comment Widget is a ModalBottomSheet widget that allows to See and POST Comment.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+USER TAB, consists of List of USERS arranged in List of Tiles: 
+On tapping Each tile, you will be directed to User Detail Page: 
+  User Detail Page Contains , data if user(basic information and stored in hive, for offline use)
+  There two buttons in detail pages : 
+      i) ALBUMS = > LIST of Images on basis of USER ID (To be done)
+      ii) POSTS =>> Same as Above post but the posts are on basis of USerID
