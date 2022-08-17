@@ -42,11 +42,11 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
           if(snapshot.hasData){
             var albums = snapshot.data as List;
             var albumsList = [];
-            albums[1].forEach((album){
+            if(albums[0]){albums[1].forEach((album){
               if(album.userId == widget.userId){
                 albumsList.add(album);
               }
-            });
+            });}
             return !albums[0] 
               ? Center(child: Text("No Data, connect to internet",style: gotuRegular,))
               : ListView.builder(
