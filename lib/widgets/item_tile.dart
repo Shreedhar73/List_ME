@@ -20,8 +20,8 @@ Widget itemTile(title,body,usedID){
           child: Text("User ID : "+usedID.toString(),style: jostLight(blue, 11),)
         ),
         const SizedBox(height: 5,),
-        Text(title,style: gotu(black, 14,),maxLines: 1,overflow: TextOverflow.ellipsis,),
-        Text("  "+body,style: jostRegular(grey, 14),),
+        Text(title??'',style: gotu(black, 14,),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        Text(body??'a',style: jostRegular(grey, 14),),
         
         
       ],

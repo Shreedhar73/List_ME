@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:listme/commons/styles.dart';
+import 'package:listme/views/user/user_albums_screen.dart';
 import 'package:listme/views/user/user_post_screen.dart';
 import 'package:listme/widgets/bottomnav_widget.dart';
 
@@ -104,7 +105,7 @@ class _UserDetailState extends State<UserDetail> {
         children: [
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>  UserPosts(userID: widget.data.id,)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>  AlbumsListScreen(userId: widget.data.id,)));
             },
             child: SizedBox(
               width: 100,

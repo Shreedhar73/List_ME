@@ -86,8 +86,8 @@ class _UserScreenState extends State<UserScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width*0.7,
                   // height: MediaQuery.of(context).size.height*0.2,
-                  child: Text(data.name,style: gotu(black, 15),maxLines: 1,overflow: TextOverflow.ellipsis,)),
-                Text("  "+data.email,style: gotu(black87, 14),),
+                  child: Text(data.name ?? '',style: gotu(black, 15),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                Text(data.email ?? '',style: gotu(black87, 14),),
               ],
             ),
           ],

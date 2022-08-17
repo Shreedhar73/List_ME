@@ -75,6 +75,12 @@ class _CommentWidgetState extends State<CommentWidget> {
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     var comments = snapshot.data as List;
+                    var commentsList = [];
+                    comments[1].forEach((element) { 
+                      if(element.postId == widget.id){
+                        commentsList.add(element);
+                      }
+                    });
                     return !comments[0] 
                     ? Center(
                       child: Text("NO DATA STORED, Please Connect to INTERNER",style: gotuRegular,),
@@ -86,15 +92,15 @@ class _CommentWidgetState extends State<CommentWidget> {
                           height: MediaQuery.of(context).size.height*0.65,
                           child: ListView.builder(
                             // shrinkWrap: true,
-                            itemCount: comments[1].length,
+                            itemCount: commentsList.length,
                             itemBuilder: (ctx,index){
-                            var comment = comments[1][index];
+                            var comment = commentsList[index];
                             return ListTile(
                               style: ListTileStyle.list,
                               minLeadingWidth: 2,
                               minVerticalPadding: 5.0,
                               contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                              title: Text(comment.email,maxLines: 1,style: gotu(black,15),),
+                              title: Text(comment.email ?? '',maxLines: 1,style: gotu(black,15),),
                               subtitle: Padding(
                                 padding: const EdgeInsets.only(left:15,top: 10),
                                 child: Text(comment.body?? '',style: jostMedium(black, 14),)),

@@ -2,6 +2,7 @@
 import 'dart:isolate';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:listme/models/albumsmodel/album_model.dart';
 import 'package:listme/models/commentsmodel/comments_model.dart';
 import 'package:listme/models/postmodels/post_model.dart';
 import 'package:listme/models/usermodel/users_model.dart';
@@ -13,6 +14,7 @@ class RemoteServices{
   final postsModel = PostModel();
   final commentsModel = CommentsModel();
   final usersModel = UserModel();
+  final albumModel = AlbumsModel();
   
 
   Future openBox() async {
@@ -30,11 +32,12 @@ class RemoteServices{
     try {
       ReceivePort port = ReceivePort();
       var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
+      var commentResponse = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/comments"));
+      await box!.put(2,commentResponse.body);
 
       final isolate = await Isolate.spawn<List<dynamic>>(postsModel.deserialize,[port.sendPort,response.body]);
       final data = await port.first ;
-      await box!.clear();
-      await box!.add(response.body);
+      await box!.put(0,response.body);
       isolate.kill(priority: Isolate.immediate);
 
       return data;
@@ -49,11 +52,8 @@ class RemoteServices{
     try {
       ReceivePort port = ReceivePort();
       var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/users/$id/posts"));
-
       final isolate = await Isolate.spawn<List<dynamic>>(postsModel.deserialize,[port.sendPort,response.body]);
       final data = await port.first ;
-      // await box!.clear();
-      // await box!.add(response.body);
       isolate.kill(priority: Isolate.immediate);
 
       return data;
@@ -70,13 +70,14 @@ class RemoteServices{
       var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/comments?postId=$id"));
       final isolate = await Isolate.spawn<List<dynamic>>(commentsModel.deserializeComment, [port.sendPort,response.body]);
       final data = await port.first;
-      await box!.add(response.body);
+      //  await box!.put(2,response.body);
       isolate.kill(priority: Isolate.immediate);
       return [true,data];
 
     }catch(SocketException){
-      var data = box!.get(1);
-       return data == null ? [false,false] :[true,commentsModelFromJson(data)];
+       var data = box!.get(2);
+        return data == null ? [false,false] :[true,commentsModelFromJson(data)];
+      // return [false,false];
     }
 
   }
@@ -101,22 +102,40 @@ class RemoteServices{
 
   }
 
-   Future <List<UserModel>> fetchUsers() async{
+   fetchUsers() async{
     await openBox();
     try{
       ReceivePort port = ReceivePort();
       var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/users"));
       final isolate = await Isolate.spawn<List<dynamic>>(usersModel.deserializeUser, [port.sendPort,response.body]);
       final data = await port.first;
-      await box!.add(response.body);
+      await box!.put(1, response.body);
       isolate.kill(priority: Isolate.immediate);
       return data;
 
     }catch(SocketException){
-      var data = box!.get(2);
-      return userModelFromJson(data);
+      var data = box!.get(1);
+       return userModelFromJson(data);
     }
 
+  }
+
+  //fetchAlbums
+  fetchAlbums() async {
+    await openBox();
+    try{
+      ReceivePort port = ReceivePort();
+      var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/albums"));
+      final isolate = await Isolate.spawn<List<dynamic>>(albumModel.deserializeAlbum, [port.sendPort,response.body]);
+      final data = await port.first;
+      await box!.put(3, response.body);
+      isolate.kill(priority: Isolate.immediate);
+      return [true,data];
+
+    }catch(e){
+      var data = box!.get(3);
+      return data == null ? [false,false] :[true,albumsModelFromJson(data)];
+    }
   }
 
   
