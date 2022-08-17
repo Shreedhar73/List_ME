@@ -73,7 +73,6 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
                       children: [
                         Text(album.id.toString(),style: gotu(tappedColor, 20),),
                         const SizedBox(height: 10),
@@ -84,8 +83,6 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
                   );
                 }
               );
-
-
           }else{
             return const Center(
               child: CircularProgressIndicator(),

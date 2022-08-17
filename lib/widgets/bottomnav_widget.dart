@@ -28,7 +28,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     const UserScreen(),
     const TodoScreen(),
   ];
-  final _bottomNavItem = ["Posts", "Albums", "Todos"];
+  final _bottomNavItem = ["Posts", "Users", "Todos"];
   @override
   void initState() {
     currentIndex = widget.xCurrentIndex;

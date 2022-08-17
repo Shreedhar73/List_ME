@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:listme/models/albumsmodel/album_model.dart';
 import 'package:listme/models/commentsmodel/comments_model.dart';
 import 'package:listme/models/postmodels/post_model.dart';
+import 'package:listme/models/todomodel/todo_model.dart';
 import 'package:listme/models/usermodel/users_model.dart';
 import 'package:listme/widgets/show_toastmssg.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,6 +16,7 @@ class RemoteServices{
   final commentsModel = CommentsModel();
   final usersModel = UserModel();
   final albumModel = AlbumsModel();
+  final todoModel = TodoModel();
   
 
   Future openBox() async {
@@ -81,7 +83,7 @@ class RemoteServices{
     }
 
   }
-
+  //post a comment
    postComment(id,text) async{
     try{
       var response = await client.post(Uri.parse("https://jsonplaceholder.typicode.com/comments?postId=$id",),
@@ -101,7 +103,7 @@ class RemoteServices{
     }
 
   }
-
+  // function to fetch users data from API
    fetchUsers() async{
     await openBox();
     try{
@@ -136,6 +138,36 @@ class RemoteServices{
       var data = box!.get(3);
       return data == null ? [false,false] :[true,albumsModelFromJson(data)];
     }
+  }
+
+  //fetch todos data
+  fetchTodos() async {
+    await openBox();
+    try{
+      // ReceivePort port = ReceivePort();
+      var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/users/1/todos"));
+      await box!.put(4, response.body);
+      var storedData = box!.get(4);
+      return storedData == null ? [false,false] : [true,todoModelFromJson(storedData)];
+
+    }catch(e){
+      var data = box!.get(4);
+      return data == null ? [false,false] : [true,albumsModelFromJson(data)];
+    }
+  }
+
+  addTodo(string)async{
+    await openBox();
+    var data = box!.get(4);
+    await box!.put(4, data.addAll ({
+      "userID": 1,
+      "id" : 150,
+      "title": string,
+      "completed": false
+    }));
+      await fetchTodos();
+                        
+
   }
 
   
