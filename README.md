@@ -62,7 +62,7 @@ SplashScreen :
         
     ScreenShots :
     //App Icon
-    ![image](https://user-images.githubusercontent.com/53093990/185211346-11d2db68-3e06-488d-ac2e-50ddcff80f23.png)
+   https://user-images.githubusercontent.com/53093990/185211346-11d2db68-3e06-488d-ac2e-50ddcff80f23.png
     
     
     //Splash(animated)
