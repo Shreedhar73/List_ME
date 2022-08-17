@@ -49,13 +49,40 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
             });}
             return !albums[0] 
               ? Center(child: Text("No Data, connect to internet",style: gotuRegular,))
-              : ListView.builder(
+              : GridView.builder(
+                padding: const EdgeInsets.all(10),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20
+                ),
+                
                 itemCount: albumsList.length,
                 itemBuilder: (ctx,idx) {
                   var album = albumsList[idx];
-                   return ListTile(
-                    title: Text(album.title,style: gotu(black,14),),
-                );}
+                  return Container(
+                    height: MediaQuery.of(context).size.height*0.2,
+                    width: MediaQuery.of(context).size.width*0.3,
+                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    decoration: ShapeDecoration(
+                      color: black.withOpacity(0.2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        Text(album.id.toString(),style: gotu(tappedColor, 20),),
+                        const SizedBox(height: 10),
+                        Text(album.title,style: gotu(black, 15),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      ],
+                    ),
+                  
+                  );
+                }
               );
 
 
