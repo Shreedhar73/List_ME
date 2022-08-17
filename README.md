@@ -1,31 +1,63 @@
 # listme
 
-Flutter Version : 2.10.3 \n
+Flutter Version : 2.10.3
 Dart Version : 2.16.0
 
 
+Project Structure:
 
-Home Screen :: Bottom Nav 
-                  with three tabs : 
-                  [Post Screen default)
-                  [USERS LIST SCREEN]
-                  [TODOD SCREEN]
-      The bottom Nav is minimally animated using AnimatedContainer widget.
-      
-      
-ALL the data is Fetched from API.
-     I have used Threading , using (ISolates.spwan(), method  that has significantly reduced the data fetching via HTTP)
-     All the fetched data are stored in HIVE . 
-     If there is no Internet (checked using SOCKETEXCEPTION class), then the data is shown from HIVE else directly from web.
-     
-POST SCREEN , contains POST data in TILES, there is an Animated pop up  at init, thatdirects to tap on individual TILE to open Comment Widget.
-Comment Widget is a ModalBottomSheet widget that allows to See and POST Comment.
+![image](https://user-images.githubusercontent.com/53093990/185200732-6ded7bca-70a6-4bf6-b41f-4a6c4325e2cc.png)
 
 
 
-USER TAB, consists of List of USERS arranged in List of Tiles: 
-On tapping Each tile, you will be directed to User Detail Page: 
-  User Detail Page Contains , data if user(basic information and stored in hive, for offline use)
-  There two buttons in detail pages : 
-      i) ALBUMS = > LIST of Images on basis of USER ID (To be done)
-      ii) POSTS =>> Same as Above post but the posts are on basis of USerID
+
+Flow Of App: 
+
+SplashScreen :
+    Use of Animated Container and Animated Opacity to Animate Screen to a Extent
+
+HomeScreen :
+    Containes BottomNav Bar with Three Bottom Nav Items:
+       Bottom Nav bar is Animated using Animated Container Widget
+    Three Tabs :
+        Posts : 
+          Shows List of Posts in Listview Builder:
+            On Tapping Each List: A ModalBottom Sheet opens That Displays the List of Comments as per Post ID.
+        
+        
+        Users: 
+          Shows List Of Users:
+              On Tapping Each Items: Routes to User Detail Page:
+              User Details Page Contains some generic info and two buttons :
+                    Albums: (On Click Routes to List of Albums Page)
+                    Posts :: Routes to Post List page(where post are on userID Basis)
+        
+        ToDO: 
+            Shows List of TODO's from API
+            
+  
+  Statemanagement Tool:
+  Bloc/ Flutter_bloc,,,  use of cubits
+  
+  
+  
+  Performance Tuning: 
+    Multithreading using, ISOLATES.SPWAN method. after api call, the model json serilization and Model mapping are done in different Isolate.
+    Thus , The network performance is significantly Fast.
+    
+    
+   Bloc , Cubits are used to Convert API response into Data Stream.
+   
+   
+   Github Actions: 
+   [rootdirectory/.github/workflows/CI.yml], contains yml file where workflow for github actions are written.
+   
+   On every push on Master Branch, Github Actions will automate the app build process and store the built apk for Android on Releases Sections.
+   
+    
+   
+
+
+
+
+
