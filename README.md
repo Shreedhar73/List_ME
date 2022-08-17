@@ -62,23 +62,23 @@ SplashScreen :
         
     ScreenShots :
     //App Icon
-   https://user-images.githubusercontent.com/53093990/185211346-11d2db68-3e06-488d-ac2e-50ddcff80f23.png
+![image](https://user-images.githubusercontent.com/53093990/185212288-527221a9-93e4-4afe-893e-4e2d13e78d76.png)
     
     
     //Splash(animated)
-    ![image](https://user-images.githubusercontent.com/53093990/185211437-27f79207-0342-4254-9c37-901b36f392a6.png)
+![image](https://user-images.githubusercontent.com/53093990/185211437-27f79207-0342-4254-9c37-901b36f392a6.png)
 
 
     //Home Screen
-    ![image](https://user-images.githubusercontent.com/53093990/185211483-ab9ef4ec-95af-4f67-abe8-a3d5ba017d3a.png)
+ ![image](https://user-images.githubusercontent.com/53093990/185211483-ab9ef4ec-95af-4f67-abe8-a3d5ba017d3a.png)
     
     
     //user Listing
-    ![image](https://user-images.githubusercontent.com/53093990/185211562-1ffa3272-d3cf-4d4e-bed1-ff9384365e4e.png)
+![image](https://user-images.githubusercontent.com/53093990/185211562-1ffa3272-d3cf-4d4e-bed1-ff9384365e4e.png)
 
     
     //comment widget
-    ![image](https://user-images.githubusercontent.com/53093990/185211600-0ac57482-baab-4c7c-a063-f8b6c33f3c7c.png)
+![image](https://user-images.githubusercontent.com/53093990/185211600-0ac57482-baab-4c7c-a063-f8b6c33f3c7c.png)
 
 
 
