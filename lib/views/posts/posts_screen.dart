@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:listme/commons/styles.dart';
+import 'package:listme/cubits/posts_cubit.dart';
 import 'package:listme/widgets/comment_widget.dart';
 import 'package:listme/widgets/item_tile.dart';
-
-import '../../services/remote_services.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({ Key? key,this.userID }) : super(key: key);
@@ -35,26 +36,26 @@ class _PostScreenState extends State<PostScreen> with TickerProviderStateMixin{
     await _controller.reverse();
   }
   //Animation End
-  final rm = RemoteServices();
+  final PostCubit postCubit = PostCubit();
 
   @override
   void initState() {
     widget.userID == null 
-    ? rm.fetchPosts() 
-    : rm.fetchPostsID(widget.userID) ;
+    ? postCubit.getPosts() 
+    : postCubit.getPostsID(widget.userID) ;
     repeatOnce();
     super.initState();
   }
   @override
   void dispose() {
-
+    postCubit.close();
     _controller.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: widget.userID == null ? rm.fetchPosts() : rm.fetchPostsID(widget.userID),
+    return StreamBuilder(
+      stream: postCubit.stream,
       builder: (context,snapshot){
         if(snapshot.hasData){
           List posts = snapshot.data as List;

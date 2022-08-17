@@ -13,6 +13,7 @@ class RemoteServices{
   final postsModel = PostModel();
   final commentsModel = CommentsModel();
   final usersModel = UserModel();
+  
 
   Future openBox() async {
     var dir = await getApplicationDocumentsDirectory();
@@ -75,7 +76,7 @@ class RemoteServices{
 
     }catch(SocketException){
       var data = box!.get(1);
-      return commentsModelFromJson(data);
+       return commentsModelFromJson(data);
     }
 
   }

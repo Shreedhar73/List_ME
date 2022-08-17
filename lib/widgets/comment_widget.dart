@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:listme/commons/check_internet.dart';
 import 'package:listme/commons/styles.dart';
+import 'package:listme/cubits/comments_cubit.dart';
 import 'package:listme/widgets/show_toastmssg.dart';
 
 import '../services/remote_services.dart';
@@ -33,13 +34,18 @@ class CommentWidget extends StatefulWidget {
 }
 
 class _CommentWidgetState extends State<CommentWidget> {
-  final rm = RemoteServices();
+  CommentsCubit commentsCubit = CommentsCubit();
   var status = false;
   var commentText = TextEditingController();
   @override
   void initState() {
-    rm.fetchComments(widget.id);
+    commentsCubit.getComments(widget.id);
     super.initState();
+  }
+  @override
+  void dispose() {
+    commentsCubit.close();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -64,8 +70,8 @@ class _CommentWidgetState extends State<CommentWidget> {
               style: gotuRegular,
             ),
             Expanded(
-              child: FutureBuilder(
-                future: rm.fetchComments(widget.id),
+              child: StreamBuilder(
+                stream: commentsCubit.stream,
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     var comments = snapshot.data as List;
@@ -163,7 +169,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                 });
               });
               commentText.text != ''
-                 ? status ? rm.postComment(widget.id,commentText.text) 
+                 ? status ? RemoteServices().postComment(widget.id,commentText.text).then((value){
+                  commentText.text = '';
+                 }) 
                         : showToastMessage('No Internet Connection')
                   : showToastMessage('Please Enter Comment');
               },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listme/commons/cached_network_image.dart';
-import 'package:listme/services/remote_services.dart';
+import 'package:listme/cubits/users_cubit.dart';
 import 'package:listme/views/user/user_detail.dart';
 
 import '../../commons/styles.dart';
@@ -13,16 +13,22 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  final rm = RemoteServices();
+  UserCubit userCubit = UserCubit();
   @override
   void initState() {
-    rm.fetchUsers();
+    userCubit.getUsers();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    userCubit.close();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    return  FutureBuilder(
-      future: rm.fetchUsers(),
+    return  StreamBuilder(
+      stream: userCubit.stream,
       builder: (context,snapshot){
         if(snapshot.hasData){
           List users = snapshot.data as List;

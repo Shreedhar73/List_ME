@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:listme/models/postmodels/post_model.dart';
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
        home: HomePage(),
     );
