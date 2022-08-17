@@ -67,6 +67,6 @@ Color getColor(Set<MaterialState> states) {
 }
 
 ColorFilter filter = ColorFilter.mode(
-  black.withOpacity(0.4),
+  black.withOpacity(0.5),
   BlendMode.multiply
 );
