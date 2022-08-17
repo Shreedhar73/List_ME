@@ -147,12 +147,12 @@ class RemoteServices{
       // ReceivePort port = ReceivePort();
       var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/users/1/todos"));
       await box!.put(4, response.body);
-      var storedData = box!.get(4);
+       var storedData = box!.get(4);
       return storedData == null ? [false,false] : [true,todoModelFromJson(storedData)];
 
     }catch(e){
       var data = box!.get(4);
-      return data == null ? [false,false] : [true,albumsModelFromJson(data)];
+      return data == null ? [false,false] : [true,todoModelFromJson(data)];
     }
   }
 
