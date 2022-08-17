@@ -15,11 +15,13 @@ Flow Of App:
 
 SplashScreen :
     Use of Animated Container and Animated Opacity to Animate Screen to a Extent
+    
 
-HomeScreen :
-    Containes BottomNav Bar with Three Bottom Nav Items:
-       Bottom Nav bar is Animated using Animated Container Widget
-    Three Tabs :
+    HomeScreen :
+         Containes BottomNav Bar with Three Bottom Nav Items:
+            Bottom Nav bar is Animated using Animated Container Widget
+        
+        Three Tabs :
         Posts : 
           Shows List of Posts in Listview Builder:
             On Tapping Each List: A ModalBottom Sheet opens That Displays the List of Comments as per Post ID.
@@ -37,11 +39,13 @@ HomeScreen :
             
   
   Statemanagement Tool:
-  Bloc/ Flutter_bloc,,,  use of cubits
+  
+    Bloc/ Flutter_bloc,,,  use of cubits
   
   
   
   Performance Tuning: 
+  
     Multithreading using, ISOLATES.SPWAN method. after api call, the model json serilization and Model mapping are done in different Isolate.
     Thus , The network performance is significantly Fast.
     
@@ -50,9 +54,34 @@ HomeScreen :
    
    
    Github Actions: 
-   [rootdirectory/.github/workflows/CI.yml], contains yml file where workflow for github actions are written.
    
-   On every push on Master Branch, Github Actions will automate the app build process and store the built apk for Android on Releases Sections.
+         [rootdirectory/.github/workflows/CI.yml], contains yml file where workflow for github actions are written.
+   
+        On every push on Master Branch, Github Actions will automate the app build process and store the built apk for Android on Releases Sections.
+        
+        
+    ScreenShots :
+    //App Icon
+    ![image](https://user-images.githubusercontent.com/53093990/185211346-11d2db68-3e06-488d-ac2e-50ddcff80f23.png)
+    
+    
+    //Splash(animated)
+    ![image](https://user-images.githubusercontent.com/53093990/185211437-27f79207-0342-4254-9c37-901b36f392a6.png)
+
+
+    //Home Screen
+    ![image](https://user-images.githubusercontent.com/53093990/185211483-ab9ef4ec-95af-4f67-abe8-a3d5ba017d3a.png)
+    
+    
+    //user Listing
+    ![image](https://user-images.githubusercontent.com/53093990/185211562-1ffa3272-d3cf-4d4e-bed1-ff9384365e4e.png)
+
+    
+    //comment widget
+    ![image](https://user-images.githubusercontent.com/53093990/185211600-0ac57482-baab-4c7c-a063-f8b6c33f3c7c.png)
+
+
+
    
     
    
