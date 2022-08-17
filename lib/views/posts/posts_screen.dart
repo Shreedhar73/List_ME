@@ -59,14 +59,23 @@ class _PostScreenState extends State<PostScreen> with TickerProviderStateMixin{
       builder: (context,snapshot){
         if(snapshot.hasData){
           List posts = snapshot.data as List;
+          List posts2 = [];
+          if(widget.userID != null){
+            posts.forEach((element) { 
+              if(element.userId == widget.userID){
+                posts2.add(element);
+              }
+            });
+
+          }  
           return Stack(
             children: [
               ListView.separated(
-                itemCount: posts.length,
+                itemCount: widget.userID == null ? posts.length : posts2.length,
                 padding: const EdgeInsets.all(15),
                 separatorBuilder: (ctx,idx)=> const SizedBox(height: 15),
                 itemBuilder: (context,index){
-                  final post = posts[index];
+                  final post = widget.userID == null ? posts[index] : posts2[index];
                   return InkWell(
                     onTap: (){
                       commentPopUpWidget(post.id,context);

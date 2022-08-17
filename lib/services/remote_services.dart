@@ -52,8 +52,8 @@ class RemoteServices{
 
       final isolate = await Isolate.spawn<List<dynamic>>(postsModel.deserialize,[port.sendPort,response.body]);
       final data = await port.first ;
-      await box!.clear();
-      await box!.add(response.body);
+      // await box!.clear();
+      // await box!.add(response.body);
       isolate.kill(priority: Isolate.immediate);
 
       return data;
@@ -63,7 +63,7 @@ class RemoteServices{
     }
   }
 
-  Future <List<CommentsModel>> fetchComments(id) async{
+  fetchComments(id) async{
     await openBox();
     try{
       ReceivePort port = ReceivePort();
@@ -72,11 +72,11 @@ class RemoteServices{
       final data = await port.first;
       await box!.add(response.body);
       isolate.kill(priority: Isolate.immediate);
-      return data;
+      return [true,data];
 
     }catch(SocketException){
       var data = box!.get(1);
-       return commentsModelFromJson(data);
+       return data == null ? [false,false] :[true,commentsModelFromJson(data)];
     }
 
   }
