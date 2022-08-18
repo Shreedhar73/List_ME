@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:listme/commons/styles.dart';
 import 'package:listme/cubits/posts_cubit.dart';
+import 'package:listme/services/remote_services.dart';
 import 'package:listme/widgets/comment_widget.dart';
 import 'package:listme/widgets/item_tile.dart';
 
@@ -52,53 +54,60 @@ class _PostScreenState extends State<PostScreen> with TickerProviderStateMixin{
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: postCubit.stream,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          List posts = snapshot.data as List;
-          List posts2 = [];
-          if(widget.userID != null){
-            posts.forEach((element) { 
-              if(element.userId == widget.userID){
-                posts2.add(element);
-              }
-            });
-
-          }  
-          return Stack(
-            children: [
-              ListView.separated(
-                itemCount: widget.userID == null ? posts.length : posts2.length,
-                padding: const EdgeInsets.all(15),
-                separatorBuilder: (ctx,idx)=> const SizedBox(height: 15),
-                itemBuilder: (context,index){
-                  final post = widget.userID == null ? posts[index] : posts2[index];
-                  return InkWell(
-                    onTap: (){
-                      commentPopUpWidget(post.id,context);
-                    },
-                    child: itemTile(post.title, post.body, post.userId)
-                  );
-                },
-              ),
-              bannerVisible
-              ?SlideTransition(
-                position: _offsetAnimation,
-                child: topBanner(),
-              )
-              :const SizedBox(),
-            ],
-          );
-
-        }else{
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+    return LiquidPullToRefresh(
+      backgroundColor: white,
+      color: black.withOpacity(0.5),
+      showChildOpacityTransition: false,
+      onRefresh:()=> postCubit.handleRefresh(widget.userID),
+      child: StreamBuilder(
+        stream: postCubit.stream,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            List posts = snapshot.data as List;
+            List posts2 = [];
+            if(widget.userID != null){
+              posts.forEach((element) { 
+                if(element.userId == widget.userID){
+                  posts2.add(element);
+                }
+              });
+    
+            }  
+            return Stack(
+              children: [
+                ListView.separated(
+                  itemCount: widget.userID == null ? posts.length : posts2.length,
+                  padding: const EdgeInsets.all(15),
+                  separatorBuilder: (ctx,idx)=> const SizedBox(height: 15),
+                  itemBuilder: (context,index){
+                    final post = widget.userID == null ? posts[index] : posts2[index];
+                    return InkWell(
+                      onTap: (){
+                        commentPopUpWidget(post.id,context);
+                      },
+                      child: itemTile(post.title, post.body, post.userId)
+                    );
+                  },
+                ),
+                bannerVisible
+                ?SlideTransition(
+                  position: _offsetAnimation,
+                  child: topBanner(),
+                )
+                :const SizedBox(),
+              ],
+            );
+    
+          }else{
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         }
-      }
+      ),
     );
   }
 

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:listme/cubits/album_cubit.dart';
+import 'package:listme/views/user/user_image_list.dart';
 
 import '../../commons/styles.dart';
 import '../../widgets/bottomnav_widget.dart';
@@ -61,26 +62,7 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
                 itemCount: albumsList.length,
                 itemBuilder: (ctx,idx) {
                   var album = albumsList[idx];
-                  return Container(
-                    height: MediaQuery.of(context).size.height*0.2,
-                    width: MediaQuery.of(context).size.width*0.3,
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                    decoration: ShapeDecoration(
-                      color: black.withOpacity(0.2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(album.id.toString(),style: gotu(tappedColor, 20),),
-                        const SizedBox(height: 10),
-                        Text(album.title,style: gotu(black, 15),maxLines: 2,overflow: TextOverflow.ellipsis,),
-                      ],
-                    ),
-                  
-                  );
+                  return albumTile(album);
                 }
               );
           }else{
@@ -91,6 +73,33 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
         },
       )
       
+    );
+  }
+  Widget albumTile(album){
+    return InkWell(
+      onTap :(){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImageListScreen(data: album,)));
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.height*0.2,
+        width: MediaQuery.of(context).size.width*0.3,
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        decoration: ShapeDecoration(
+          color: black.withOpacity(0.2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(album.id.toString(),style: gotu(tappedColor, 20),),
+            const SizedBox(height: 10),
+            Text(album.title,style: gotu(black, 15),maxLines: 2,overflow: TextOverflow.ellipsis,),
+          ],
+        ),
+      
+      ),
     );
   }
 }

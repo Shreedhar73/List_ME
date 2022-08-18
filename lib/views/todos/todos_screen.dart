@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:listme/commons/styles.dart';
 
 import '../../cubits/todos_cubit.dart';
@@ -26,26 +27,32 @@ class _TodoScreenState extends State<TodoScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder ( 
-      stream: todoCubit.stream,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          var data = snapshot.data as List;
-          return data[0] ? ListView.builder(
-            itemCount: data[1].length,
-            itemBuilder: (context,index){
-              var todo = data[1][index];
-              return todoTile(todo);
-            },
-          )
-          : Center(
-            child : Text("No Data",style: gotuRegular)
+    return LiquidPullToRefresh(
+      backgroundColor: white,
+      color: black.withOpacity(0.5),
+      showChildOpacityTransition: false,
+      onRefresh: todoCubit.handleRefresh,
+      child: StreamBuilder ( 
+        stream: todoCubit.stream,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            var data = snapshot.data as List;
+            return data[0] ? ListView.builder(
+              itemCount: data[1].length,
+              itemBuilder: (context,index){
+                var todo = data[1][index];
+                return todoTile(todo);
+              },
+            )
+            : Center(
+              child : Text("No Data",style: gotuRegular)
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+      ),
     );
    
   }

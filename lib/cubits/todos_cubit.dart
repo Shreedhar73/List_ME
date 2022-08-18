@@ -9,4 +9,8 @@ class TodoCubit extends Cubit<dynamic>{
       emit(value);
     });
   }
+  Future <void> handleRefresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    fetchTodos();
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:listme/commons/cached_network_image.dart';
 import 'package:listme/cubits/users_cubit.dart';
 import 'package:listme/views/user/user_detail.dart';
@@ -27,26 +28,32 @@ class _UserScreenState extends State<UserScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return  StreamBuilder(
-      stream: userCubit.stream,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          List users = snapshot.data as List;
-          return ListView.builder(
-            itemCount: users.length,
-            padding: EdgeInsets.zero,
-            itemBuilder: (contetx,index){
-              final user = users[index];
-              return userTile(user);
-            },
-          );
-        }else{
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-      
+    return  LiquidPullToRefresh(
+      onRefresh: userCubit.handleRefresh,
+      backgroundColor: white,
+      color: black.withOpacity(0.5),
+      showChildOpacityTransition: false,
+      child: StreamBuilder(
+        stream: userCubit.stream,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            List users = snapshot.data as List;
+            return ListView.builder(
+              itemCount: users.length,
+              padding: EdgeInsets.zero,
+              itemBuilder: (contetx,index){
+                final user = users[index];
+                return userTile(user);
+              },
+            );
+          }else{
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+        
+      ),
     );
   }
 

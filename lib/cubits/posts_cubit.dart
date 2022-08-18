@@ -15,4 +15,8 @@ class PostCubit extends Cubit<dynamic> {
       emit(value);
     });
   }
+  Future<void> handleRefresh(id) async {
+    await Future.delayed(const Duration(seconds: 1));
+    id==null ? getPosts() : getPostsID(id);
+  }
 }
