@@ -11,40 +11,44 @@ Project Structure:
 
 
 
-Flow Of App: 
+##Flow Of App: 
 
-SplashScreen :
+#SplashScreen :
     Use of Animated Container and Animated Opacity to Animate Screen to a Extent
     
+    
 
-    HomeScreen :
+   ##HomeScreen :
          Containes BottomNav Bar with Three Bottom Nav Items:
             Bottom Nav bar is Animated using Animated Container Widget
         
-        Three Tabs :
-        Posts : 
+        <B>Three Tabs :
+        #Posts : 
           Shows List of Posts in Listview Builder:
             On Tapping Each List: A ModalBottom Sheet opens That Displays the List of Comments as per Post ID.
         
         
-        Users: 
+        #Users: 
           Shows List Of Users:
               On Tapping Each Items: Routes to User Detail Page:
               User Details Page Contains some generic info and two buttons :
                     Albums: (On Click Routes to List of Albums Page)
                     Posts :: Routes to Post List page(where post are on userID Basis)
         
-        ToDO: 
+        #ToDO: 
             Shows List of TODO's from API
             
+            
+ #Implemented :
+        Pull to Refresh
   
-  Statemanagement Tool:
+  #Statemanagement Tool:
   
     Bloc/ Flutter_bloc,,,  use of cubits
   
   
   
-  Performance Tuning: 
+  ##Performance Tuning: 
   
     Multithreading using, ISOLATES.SPWAN method. after api call, the model json serilization and Model mapping are done in different Isolate.
     Thus , The network performance is significantly Fast.
@@ -53,7 +57,7 @@ SplashScreen :
    Bloc , Cubits are used to Convert API response into Data Stream.
    
    
-   Github Actions: 
+  ## Github Actions: 
    
          [rootdirectory/.github/workflows/CI.yml], contains yml file where workflow for github actions are written.
    
@@ -79,6 +83,10 @@ SplashScreen :
     
     //comment widget
 ![image](https://user-images.githubusercontent.com/53093990/185211600-0ac57482-baab-4c7c-a063-f8b6c33f3c7c.png)
+
+    // pull to refresh
+![image](https://user-images.githubusercontent.com/53093990/185317852-16949c71-aadd-4e5c-b417-39054b632102.png)
+
 
 
 
