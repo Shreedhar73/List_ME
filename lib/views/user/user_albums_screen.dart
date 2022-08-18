@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:listme/cubits/album_cubit.dart';
-import 'package:listme/views/user/user_image_list.dart';
+import 'package:listme/views/image_scree.dart';
 
 import '../../commons/styles.dart';
 import '../../widgets/bottomnav_widget.dart';
@@ -78,7 +78,7 @@ class _AlbumsListScreenState extends State<AlbumsListScreen> {
   Widget albumTile(album){
     return InkWell(
       onTap :(){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImageListScreen(data: album,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>AnimatedCarousel(data: album,)));
       },
       child: Container(
         height: MediaQuery.of(context).size.height*0.2,

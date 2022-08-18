@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:listme/commons/styles.dart';
 import 'package:listme/cubits/posts_cubit.dart';
-import 'package:listme/services/remote_services.dart';
 import 'package:listme/widgets/comment_widget.dart';
 import 'package:listme/widgets/item_tile.dart';
 

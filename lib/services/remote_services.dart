@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:listme/models/albumsmodel/album_model.dart';
 import 'package:listme/models/commentsmodel/comments_model.dart';
+import 'package:listme/models/imagemodel/image_model.dart';
 import 'package:listme/models/postmodels/post_model.dart';
 import 'package:listme/models/todomodel/todo_model.dart';
 import 'package:listme/models/usermodel/users_model.dart';
@@ -17,6 +18,7 @@ class RemoteServices{
   final usersModel = UserModel();
   final albumModel = AlbumsModel();
   final todoModel = TodoModel();
+  final imageModel = ImageModel();
   
 
   Future openBox() async {
@@ -140,6 +142,20 @@ class RemoteServices{
       return data == null ? [false,false] :[true,albumsModelFromJson(data)];
     }
   }
+  //fetch albums detail  data
+  fetchAlbumsDetail(id) async {
+    await openBox();
+    try{
+      ReceivePort port = ReceivePort();
+      var response = await client.get(Uri.parse("https://jsonplaceholder.typicode.com/albums/$id/photos"));
+      final isolate = await Isolate.spawn<List<dynamic>>(imageModel.deserializeImage, [port.sendPort,response.body]);
+      final data = await port.first;
+      isolate.kill(priority: Isolate.immediate);
+      return data;
+    }catch(e){
+      null;
+    }
+  }
 
   //fetch todos data
   fetchTodos() async {
@@ -157,6 +173,7 @@ class RemoteServices{
     }
   }
 
+//add to todos
   addTodo(string)async{
     await openBox();
     var data = box!.get(4);
@@ -167,8 +184,6 @@ class RemoteServices{
       "completed": false
     }));
       await fetchTodos();
-                        
-
   }
 
   
