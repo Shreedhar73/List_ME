@@ -33,6 +33,7 @@ Project Structure:
               On Tapping Each Items: Routes to User Detail Page:
               User Details Page Contains some generic info and two buttons :
                     Albums: (On Click Routes to List of Albums Page)
+                    Images: Are Shown in Carousel , can be swipped infinitely, swpie down to dismiss and zoom in and out
                     Posts :: Routes to Post List page(where post are on userID Basis)
         
         #ToDO: 
