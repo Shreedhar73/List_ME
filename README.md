@@ -11,10 +11,10 @@ Project Structure:
 
 
 
-##Flow Of App: 
+#Flow Of App: 
 
-#SplashScreen :
-    Use of Animated Container and Animated Opacity to Animate Screen to a Extent
+    #SplashScreen :
+        Use of Animated Container and Animated Opacity to Animate Screen to a Extent
     
     
 
@@ -40,7 +40,8 @@ Project Structure:
             Shows List of TODO's from API
             
             
- #Implemented :
+ Implemented :
+ 
         Pull to Refresh
   
   #Statemanagement Tool:
